@@ -10,7 +10,7 @@ sm4: main.c wrapper.c wrapper.h $(HITLS_DIR)/declarations.h makefile
 ARGS ?=
 
 run-aes-%: aes
-	@LD_LIBRARY_PATH=$(HITLS_DIR)/$*/:$$LD_LIBRARY_PATH ./aes $(ARGS)
+	@target=$* && subdir=$${target#aes-} && LD_LIBRARY_PATH=$(HITLS_DIR)/$$subdir:$$LD_LIBRARY_PATH ./aes $(ARGS)
 
 run-sm4-%: sm4
-	@LD_LIBRARY_PATH=$(HITLS_DIR)/$*/:$$LD_LIBRARY_PATH ./sm4 $(ARGS)
+	@target=$* && subdir=$${target#sm4-} && LD_LIBRARY_PATH=$(HITLS_DIR)/$$subdir:$$LD_LIBRARY_PATH ./sm4 $(ARGS)

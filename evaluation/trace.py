@@ -21,8 +21,11 @@ def test_target(target: str, cipher: str, root_dir: str) -> None:
 		test_key(target, cipher, key, root_dir)
 
 def main() -> None:
-	for target in ['aes_constant_time']:
+	for target in ['original', 'aes_preload', 'aes_constant_time', 'aes_lut_p']:
 		test_target(target, 'aes', 'traces/aes')
+
+	for target in ['original', 'sm4_preload', 'sm4_lut_p']:
+		test_target(target, 'sm4', 'traces/sm4')
 
 if __name__ == "__main__":
 	main()

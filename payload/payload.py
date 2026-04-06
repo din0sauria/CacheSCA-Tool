@@ -18,7 +18,7 @@ if __name__ == "__main__":
 		sys.exit(1)
 
 	aim = sys.argv[1]
-	cipher = sys.argv[2]
+	cipher = sys.argv[2].lower()
 	datafile = sys.argv[3]
 	level = sys.argv[4]
 
@@ -32,8 +32,8 @@ if __name__ == "__main__":
 		results = pool.starmap(run_command, commands)
 	
 	# # 打印结果
-	# for i, result in enumerate(results):
-	# 	print(f"Command {i+1} output:\n{result}")
+	for i, result in enumerate(results):
+		print(f"Command {i+1} output:\n{result}")
 	
 	idx = results[0].find(' clock ticks')
 	if idx < 0:
