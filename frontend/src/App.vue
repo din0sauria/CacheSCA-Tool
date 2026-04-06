@@ -4,7 +4,7 @@
       <div class="header-content">
         <div class="logo-section">
           <div class="logo-icon-wrapper">
-            <el-icon class="logo-icon"><Fingerprint /></el-icon>
+            <el-icon class="logo-icon"><Key /></el-icon>
           </div>
           <div class="title-section">
             <h1 class="app-title">CacheSCA-Tool</h1>
@@ -64,7 +64,9 @@
 <script setup>
 import { computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { InfoFilled } from '@element-plus/icons-vue'
+import { 
+  Key, HomeFilled, TrendCharts, DataAnalysis, InfoFilled 
+} from '@element-plus/icons-vue'
 
 const route = useRoute()
 const router = useRouter()

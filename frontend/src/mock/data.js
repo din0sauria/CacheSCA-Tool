@@ -1,5 +1,5 @@
 export const mockEvaluationData = {
-  skey: '9c9e4e3a194bf4cf43afc0bd08ebc924',
+  skey: '909040301040f0c040a0c0b000e0c020',
   pages: 16,
   validRows: [
     0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07,
@@ -68,39 +68,54 @@ export const mockEvaluationData = {
 }
 
 export const mockPerformanceData = {
-  results: {
-    low: 645,
-    medium: 812,
-    high: 1247,
-    extreme: 1893
+  baseResults: {
+    original: { low: 645, medium: 812, high: 1247, extreme: 1893 },
+    preload: { low: 520, medium: 680, high: 1050, extreme: 1620 },
+    constant_time: { low: 780, medium: 950, high: 1420, extreme: 2150 },
+    lut_p: { low: 590, medium: 750, high: 1180, extreme: 1780 },
+    'aes_original': { low: 645, medium: 812, high: 1247, extreme: 1893 },
+    'aes_preload': { low: 520, medium: 680, high: 1050, extreme: 1620 },
+    'aes_constant_time': { low: 780, medium: 950, high: 1420, extreme: 2150 },
+    'aes_lut_p': { low: 590, medium: 750, high: 1180, extreme: 1780 },
+    'sm4_original': { low: 720, medium: 890, high: 1350, extreme: 2050 },
+    'sm4_preload': { low: 580, medium: 740, high: 1120, extreme: 1720 },
+    'sm4_lut_p': { low: 650, medium: 820, high: 1250, extreme: 1900 }
   },
-  encryptionTime: 645,
-  decryptionTime: 1044,
-  keyExpansionTime: 128,
-  samples: 10000,
   
-  generateChartData: () => {
+  getMockResults: (aim = 'original') => {
+    const base = mockPerformanceData.baseResults[aim] || mockPerformanceData.baseResults['original']
+    const randomFactor = () => Math.floor(Math.random() * 100) - 50
     return {
-      labels: ['加密时间', '解密时间', '密钥扩展'],
-      values: [
-        mockPerformanceData.encryptionTime,
-        mockPerformanceData.decryptionTime,
-        mockPerformanceData.keyExpansionTime
-      ]
+      low: base.low + randomFactor(),
+      medium: base.medium + randomFactor(),
+      high: base.high + randomFactor(),
+      extreme: base.extreme + randomFactor()
     }
   },
   
-  generateComparisonData: () => {
+  generateComparisonData: (aim = 'original') => {
+    const randomFactor = () => Math.floor(Math.random() * 80) - 40
     return {
       labels: ['原始实现', '预加载表', '常量时间', '并行拆分表'],
-      encryption: [645, 520, 780, 590],
-      decryption: [1044, 850, 1200, 920],
-      keyExpansion: [128, 128, 128, 145]
+      encryption: [
+        645 + randomFactor(),
+        520 + randomFactor(),
+        780 + randomFactor(),
+        590 + randomFactor()
+      ],
+      decryption: [
+        1044 + randomFactor(),
+        850 + randomFactor(),
+        1200 + randomFactor(),
+        920 + randomFactor()
+      ],
+      keyExpansion: [
+        128 + randomFactor(),
+        128 + randomFactor(),
+        128 + randomFactor(),
+        145 + randomFactor()
+      ]
     }
-  },
-  
-  getMockResults: () => {
-    return { ...mockPerformanceData.results }
   }
 }
 

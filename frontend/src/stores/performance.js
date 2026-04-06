@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia'
 import { performanceApi } from '@/api'
 import { mockPerformanceData } from '@/mock/data'
+import { useConfigStore } from './config'
 
 export const usePerformanceStore = defineStore('performance', {
   state: () => ({
@@ -40,7 +41,9 @@ export const usePerformanceStore = defineStore('performance', {
     },
 
     _useMockResults() {
-      this.results = mockPerformanceData.getMockResults()
+      const configStore = useConfigStore()
+      const aim = configStore.aim || 'original'
+      this.results = mockPerformanceData.getMockResults(aim)
       this.useMockData = true
       return { success: true, results: this.results, mock: true }
     },

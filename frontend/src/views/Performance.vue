@@ -258,9 +258,10 @@ const startTest = async () => {
 }
 
 const saveResults = async () => {
-  const result = await performanceStore.saveResult(`performance_${Date.now()}.txt`)
+  const filename = `performance_${Date.now()}.txt`
+  const result = await performanceStore.saveResult(filename)
   if (result.success) {
-    ElMessage.success('结果已保存')
+    ElMessage.success(`结果已保存: ${result.filepath || filename}`)
   } else {
     ElMessage.error('保存失败')
   }

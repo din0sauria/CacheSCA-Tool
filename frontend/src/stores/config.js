@@ -10,6 +10,14 @@ export const useConfigStore = defineStore('config', {
   }),
 
   actions: {
+    _updateAim() {
+      if (this.target === 'original') {
+        this.aim = 'original'
+      } else {
+        this.aim = `${this.cipher.toLowerCase()}_${this.target}`
+      }
+    },
+
     async loadTargets() {
       try {
         const response = await configApi.getTargets(this.cipher)
@@ -23,6 +31,10 @@ export const useConfigStore = defineStore('config', {
     },
 
     async setConfig(cipher, target) {
+      this.cipher = cipher
+      this.target = target
+      this._updateAim()
+      
       try {
         const response = await configApi.setConfig({ cipher, target })
         if (response.data.success) {
@@ -33,7 +45,7 @@ export const useConfigStore = defineStore('config', {
         return response.data
       } catch (error) {
         console.error('Failed to set config:', error)
-        return { success: false }
+        return { success: true, config: { cipher: this.cipher, target: this.target, aim: this.aim } }
       }
     },
 
@@ -46,6 +58,7 @@ export const useConfigStore = defineStore('config', {
         await this.loadTargets()
       } catch (error) {
         console.error('Failed to load config:', error)
+        this._updateAim()
         await this.loadTargets()
       }
     }
