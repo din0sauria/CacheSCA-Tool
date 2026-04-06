@@ -82,7 +82,6 @@ CacheSCA-Tool/
 
 ### 安装与运行
 
-#### Windows 用户
 
 1. **启动后端服务**
    ```bash
@@ -96,20 +95,6 @@ CacheSCA-Tool/
    cd frontend
    npm install
    npm run dev
-   ```
-
-#### Linux/macOS 用户
-
-1. **启动后端服务**
-   ```bash
-   chmod +x start-backend.sh
-   ./start-backend.sh
-   ```
-
-2. **启动前端服务**（新开一个终端）
-   ```bash
-   chmod +x start-frontend.sh
-   ./start-frontend.sh
    ```
 
 ### 访问应用
