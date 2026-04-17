@@ -3,14 +3,15 @@ import subprocess
 import shutil
 
 class ConfigService:
+    _config = {
+        'cipher': 'AES',
+        'target': 'original',
+        'aim': 'original'
+    }
+    
     def __init__(self):
-        self.config = {
-            'cipher': 'AES',
-            'target': 'original',
-            'aim': 'original'
-        }
+        self.config = ConfigService._config
         self.base_dir = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-        #print("base_dir:",self.base_dir)#CacheSCA-Tool
         self.payload_dir = os.path.join(self.base_dir, 'payload')
         self.evaluation_dir = os.path.join(self.base_dir, 'evaluation')
         self.hitls_dir = os.path.join(self.base_dir, 'hitls')
@@ -39,6 +40,11 @@ class ConfigService:
         self.config['cipher'] = cipher
         self.config['target'] = target
         self.config['aim'] = 'original' if target == 'original' else f'{cipher.lower()}_{target}'
+        
+        print(f'\n[Config] 配置已更新:')
+        print(f'  - 加密算法: {cipher}')
+        print(f'  - 测试目标: {target}')
+        print(f'  - 目标标识: {self.config["aim"]}')
         
         return {'success': True, 'config': self.config}
 

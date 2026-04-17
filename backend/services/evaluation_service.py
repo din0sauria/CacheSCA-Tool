@@ -31,6 +31,17 @@ class EvaluationService:
         
         cmd = f'make run-{cipher_lower}-{aim} ARGS="-k {skey_str.lower()} -s {samples}" > {fout}'
         
+        print(f'\n{"="*60}')
+        print(f'[Evaluation] 执行安全性评估')
+        print(f'  - 加密算法: {config["cipher"]}')
+        print(f'  - 测试目标: {config["target"]}')
+        print(f'  - 目标标识: {aim}')
+        print(f'  - 密钥: {skey_str}')
+        print(f'  - 采样组数: {samples}')
+        print(f'  - 工作目录: {self.evaluation_dir}')
+        print(f'  - 执行命令: {cmd}')
+        print(f'{"="*60}\n')
+        
         success, output = self.config_service.run_command(cmd, self.evaluation_dir, shell=True)
         if not success:
             return {'success': False, 'message': f'Evaluation failed: {output}'}

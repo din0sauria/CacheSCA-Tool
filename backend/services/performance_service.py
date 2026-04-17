@@ -16,19 +16,40 @@ class PerformanceService:
         config = self.config_service.get_config()
         datafile = data.get('datafile', 'data')
         
+        print(f'\n{"="*60}')
+        print(f'[Performance] 执行性能测试')
+        print(f'  - 加密算法: {config["cipher"]}')
+        print(f'  - 测试目标: {config["target"]}')
+        print(f'  - 目标标识: {config["aim"]}')
+        print(f'  - 数据文件: {datafile}')
+        print(f'  - 工作目录: {self.payload_dir}')
+        print(f'{"="*60}')
+        
         results = {}
         for level in self.levels:
             cmd = ['python', 'payload.py', config['aim'], config['cipher'], datafile, level]
+            
+            print(f'\n[Performance] 测试负载级别: {level}')
+            print(f'  - 执行命令: {" ".join(cmd)}')
+            
             success, output = self.config_service.run_command(cmd, self.payload_dir)
             
             if not success:
+                print(f'  - 结果: 失败')
                 return {'success': False, 'message': f'Test failed for {level}: {output}'}
             
             try:
                 cycles = int(output.strip().split('\n')[-1])
                 results[level] = cycles
+                print(f'  - CPU周期: {cycles}')
             except (ValueError, IndexError):
                 results[level] = 0
+                print(f'  - 结果: 解析失败')
+        
+        print(f'\n{"="*60}')
+        print(f'[Performance] 测试完成')
+        print(f'  - 结果: {results}')
+        print(f'{"="*60}\n')
         
         return {'success': True, 'results': results}
 

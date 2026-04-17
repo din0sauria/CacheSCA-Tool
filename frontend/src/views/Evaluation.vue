@@ -55,7 +55,7 @@
                   <div class="samples-row">
                     <div class="quick-select">
                       <el-button 
-                        v-for="preset in [100, 500, 1000, 2000, 5000]" 
+                        v-for="preset in [10000, 20000, 50000, 80000, 100000]" 
                         :key="preset"
                         :type="samples === preset ? 'danger' : 'default'"
                         size="small"
@@ -68,8 +68,8 @@
                     <el-input 
                       v-model.number="samples" 
                       type="number" 
-                      :min="100" 
-                      :max="10000"
+                      :min="10000" 
+                      :max="100000"
                       size="small"
                       class="samples-input"
                     >
@@ -81,9 +81,9 @@
                   <div class="slider-group">
                     <el-slider 
                       v-model="samples" 
-                      :min="100" 
-                      :max="10000" 
-                      :step="100"
+                      :min="10000" 
+                      :max="100000" 
+                      :step="1000"
                       :show-tooltip="true"
                       :format-tooltip="(val) => `${val} 组`"
                       class="samples-slider"
@@ -291,7 +291,7 @@ const heatmapRefs = ref({})
 const heatmapCharts = ref({})
 const selectedByteIndex = ref(null)
 const secretKey = ref('')
-const samples = ref(1000)
+const samples = ref(10000)
 const heatmapDataCache = ref({})
 
 const setHeatmapRef = (index, el) => {
