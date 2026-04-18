@@ -52,7 +52,6 @@ CacheSCA-Tool/
 
 1. **克隆仓库**
    ```bash
-   git clone https://github.com/你的用户名/CacheSCA-Tool.git
    cd CacheSCA-Tool
    ```
 
@@ -69,7 +68,12 @@ CacheSCA-Tool/
    npm install
    npm run dev
    ```
-
+   或
+   ```bash
+   cd frontend
+   pnpm install
+   pnpm run dev
+   ```
 4. **访问应用**
    - 前端界面: http://localhost:5173
    - 后端 API: http://localhost:5000
